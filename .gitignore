@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+
+# Environment
+.env
+venv/
+.env.*
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Dependency directories
+lib/
+libs/
+
+# Logs
+logs/
+
+# Generated files
+dist/
+build/
+*.egg-info/
+*.egg
+*.exe
+
+# Miscellaneous
+*.DS_Store
