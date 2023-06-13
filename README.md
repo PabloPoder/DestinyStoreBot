@@ -10,8 +10,6 @@ Bot desarrollado en Python con uso de libreria nextcord para server Destiny.
 - '/info': Muestra info sobre el server.
 
 # Guia de uso 🤔
-Antes de ejecutar el archivo, desde la terminal dirigete a la carpeta raiz del proyecto y ejecuta ```pip install -r requirements.txt``` para instalar las dependencias requeridas.
-
 1. Ejecutar archivo 'main.py'. (Si todo salio correctamente se vera un mensaje en consola: 'Destiny is On!')
 2. Desde en canal general de su server ejecutar comando '/setup'. Esto creara dos canales nuevos: 'bienvenido' y 'comprar'.
 3. Ir a canal 'comprar' y ejecutar comando '/setup_bot'. Se creara una interfaz de compra donde tendra acceso a diferentes opciones.
