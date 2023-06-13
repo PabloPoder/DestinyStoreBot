@@ -3,6 +3,7 @@ import asyncio
 from nextcord import slash_command, Interaction
 from nextcord.ext import commands
 import nextcord
+from cogs.buying import Buying
 
 from config import DISCORD_SERVER_TOKEN
 
@@ -16,16 +17,16 @@ class TicketChannel(commands.Cog):
     async def on_message(self, message):
         # Get the channel text
         text_channel = message.channel
-        
+
         # Verifying if the channel contains the keyword "ticket" in its name
         if "ticket" in text_channel.name.lower():
             # Cancel the previous sleep task, if any
             if self.sleep_task is not None:
                 self.sleep_task.cancel()
-                
+
             # Start a new sleep task for 5 minutes
             self.sleep_task = asyncio.create_task(asyncio.sleep(330))
-            
+
             try:
                 # Wait for 5 minutes
                 await self.sleep_task
@@ -35,12 +36,14 @@ class TicketChannel(commands.Cog):
 
                 # Calculate the time difference from the last message to now
                 current_time = datetime.datetime.now(datetime.timezone.utc)
-                time_difference = (current_time - last_message_time).total_seconds() / 60
+                time_difference = (
+                    current_time - last_message_time).total_seconds() / 60
                 print(time_difference)
 
                 # Check if the channel is idle for more than a certain period of time (for example, 5 minutes)
                 if time_difference >= 5:
-                    print(f"El canal {text_channel.name} ha sido borrado debido a inactividad.")
+                    print(
+                        f"El canal {text_channel.name} ha sido borrado debido a inactividad.")
                     await text_channel.delete()
                 else:
                     print(f"El canal {text_channel.name} está activo.")
@@ -50,8 +53,7 @@ class TicketChannel(commands.Cog):
 
         # Continue with normal message processing
         await self.bot.process_commands(message)
-        
-        
+
     @slash_command(name="delete_tickets", description="Borrar canales ticket inactivos.", guild_ids=[DISCORD_SERVER_TOKEN], default_member_permissions=0)
     @commands.has_permissions(administrator=True)
     async def delete_tickets(self, interaction: Interaction):
@@ -64,16 +66,20 @@ class TicketChannel(commands.Cog):
             try:
                 if "ticket" in channel.name.lower():
                     if channel.last_message is None:
-                        print(f"El canal {channel.name} ha sido borrado debido a inactividad.")
+                        print(
+                            f"El canal {channel.name} ha sido borrado debido a inactividad.")
                         await channel.delete()
                         deleted_channels.append(channel.name)
                     else:
                         last_message_time = channel.last_message.created_at
-                        current_time = datetime.datetime.now(datetime.timezone.utc)
-                        time_difference = (current_time - last_message_time).total_seconds() / 60
+                        current_time = datetime.datetime.now(
+                            datetime.timezone.utc)
+                        time_difference = (
+                            current_time - last_message_time).total_seconds() / 60
 
                         if time_difference >= 5:
-                            print(f"El canal {channel.name} ha sido borrado debido a inactividad.")
+                            print(
+                                f"El canal {channel.name} ha sido borrado debido a inactividad.")
                             await channel.delete()
                             deleted_channels.append(channel.name)
 
@@ -87,6 +93,7 @@ class TicketChannel(commands.Cog):
             await interaction.followup.send(ephemeral=True, content="Canales de tickets inactivos eliminados: " + ", ".join(deleted_channels), delete_after=10)
         else:
             await interaction.followup.send(ephemeral=True, content="No se encontraron canales de tickets inactivos.", delete_after=10)
+
 
 def setup(bot):
     bot.add_cog(TicketChannel(bot))
