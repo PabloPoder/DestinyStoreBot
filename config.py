@@ -1,13 +1,12 @@
 # Bot token
-DISCORD_TOKEN = (
-    "MTExNjg4ODc4ODAxMTA2OTU2Mw.GgBbSB.1zUxUumEG0ORaJWrO07B6seodPmOK4JLPZeuT0"
-)
+import os
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Bot prefix
 COMMAND_PREFIX = "/"
 
 # Discord Server Token
-DISCORD_SERVER_TOKEN = 1029823718190485614
+DISCORD_SERVER_TOKEN = os.getenv('DISCORD_SERVER_TOKEN')
 
 
 # Welcome channel link
@@ -24,4 +23,3 @@ AMINO_PROFILE_URL = "https://www.aminoapps.com/p/u9euxs"
 AMINO_COINS = 'Amino Coins'
 SCRIPTS = 'Scripts'
 SUPPORT = 'Support'
-
